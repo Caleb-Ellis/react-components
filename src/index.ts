@@ -13,6 +13,7 @@ export { default as List } from "./components/List";
 export { default as Loader } from "./components/Loader";
 export { default as MainTable } from "./components/MainTable";
 export { default as Modal } from "./components/Modal";
+export { default as Navigation } from "./components/Navigation";
 export { default as Notification } from "./components/Notification";
 export { notificationTypes } from "./components/Notification";
 export { default as Pagination } from "./components/Pagination";

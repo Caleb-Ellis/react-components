@@ -1,0 +1,213 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { boolean, number, text, withKnobs } from "@storybook/addon-knobs";
+import { useState } from "react";
+import Navigation from "./Navigation";
+import NavigationBanner from "../NavigationBanner";
+import NavigationGroup from "../NavigationGroup";
+import NavigationItem from "../NavigationItem";
+import NavigationItemContainer from "../NavigationItemContainer";
+import NavigationSubnavItem from "../NavigationSubnavItem";
+
+<Meta title="Navigation" component={Navigation} decorators={[withKnobs]} />
+
+### Navigation
+
+This is the [React](https://reactjs.org/) component for the Vanilla
+[Navigation](https://vanillaframework.io/docs/patterns/navigation) pattern. It
+is a simple navigation bar that you can add to the top of your site or app.
+
+The navigation items are collapsed behind a "Menu" link in small screens and
+displayed horizontally on larger screens.
+
+### Props
+
+<Props of={Navigation} />
+
+### Default
+
+The default navigation is constrained to the max width of the Vanilla grid and
+uses the light theme.
+
+<Preview>
+  <Story name="Default">
+    <Navigation
+      banner={{
+        children: (
+          <img
+            alt="Canonical logo"
+            src="https://assets.ubuntu.com/v1/5d6da5c4-logo-canonical-aubergine.svg"
+            width="95"
+          />
+        ),
+      }}
+      items={[
+        { children: "Product", selected: true },
+        { children: "Services" },
+        { children: "Partners" },
+        { children: "About" },
+      ]}
+    />
+  </Story>
+</Preview>
+
+### Dark
+
+You can switch to a dark themed Navigation by using the `dark` prop. This will
+automatically update the Navigation items to use lighter text and hover state
+colours.
+
+<Preview>
+  <Story name="Dark">
+    <Navigation
+      banner={{
+        children: (
+          <img
+            alt="Canonical logo"
+            src="https://assets.ubuntu.com/v1/3c7954dd-logo-canonical-white.svg"
+            width="95"
+          />
+        ),
+      }}
+      dark
+      items={[
+        { children: "Product", selected: true },
+        { children: "Services" },
+        { children: "Partners" },
+        { children: "About" },
+      ]}
+    />
+  </Story>
+</Preview>
+
+### Full width
+
+By default, the width of the navigation is constrained to the max width of the
+Vanilla grid. To make the navigation full width, use the `fullWidth` prop.
+
+<Preview>
+  <Story name="Full width">
+    <Navigation
+      banner={{
+        children: (
+          <img
+            alt="Canonical logo"
+            src="https://assets.ubuntu.com/v1/5d6da5c4-logo-canonical-aubergine.svg"
+            width="95"
+          />
+        ),
+      }}
+      fullWidth
+      items={[
+        [
+          { children: "Product", selected: true },
+          { children: "Services" },
+          { children: "Partners" },
+          { children: "About" },
+        ],
+        [{ children: "Log out" }],
+      ]}
+    />
+  </Story>
+</Preview>
+
+### Sub-navigation
+
+Sub-navigation drop-down menus can be added to Navigation by adding a `subnav`
+object to an item. By default, the subnav items will align to the left of the
+parent item. This can be changed by adding `{ align: "left" }` to the subnav
+object.
+
+<Preview>
+  <Story name="Sub-navigation">
+    <Navigation
+      banner={{
+        children: (
+          <img
+            alt="LXD logo"
+            src="https://assets.ubuntu.com/v1/ac9a0e00-lxd_primary.svg"
+            width="95"
+          />
+        ),
+      }}
+      fullWidth
+      items={[
+        [
+          {
+            children: "LXC",
+            subnav: {
+              items: [
+                { children: "Introduction" },
+                { children: "News" },
+                { children: "Getting started" },
+              ],
+            },
+          },
+          {
+            children: "LXD",
+            subnav: {
+              items: [
+                { children: "Introduction" },
+                { children: "News" },
+                { children: "Getting started - Command line" },
+                { children: "Getting started - OpenStack" },
+                { children: "Getting started - OpenNebula" },
+              ],
+            },
+          },
+          {
+            children: "LXCFS",
+            subnav: {
+              items: [
+                { children: "Introduction" },
+                { children: "News" },
+                { children: "Getting started" },
+              ],
+            },
+          },
+        ],
+        [
+          {
+            children: "My account",
+            subnav: { align: "right", items: [{ children: "Sign out" }] },
+          },
+        ],
+      ]}
+    />
+  </Story>
+</Preview>
+
+### Child render
+
+For finer control of the Navigation component you can manually provide
+Navigation subcomponents as children, following a similar construction pattern
+to the [Vanilla pattern](https://vanillaframework.io/docs/patterns/navigation).
+
+<Preview>
+  <Story name="Child render">
+    {() => {
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+      return (
+        <Navigation>
+          <NavigationBanner
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+          >
+            <img
+              alt="Canonical logo"
+              src="https://assets.ubuntu.com/v1/5d6da5c4-logo-canonical-aubergine.svg"
+              width="95"
+            />
+          </NavigationBanner>
+          <NavigationItemContainer mobileMenuOpen={mobileMenuOpen}>
+            <NavigationGroup>
+              <NavigationItem selected>Product</NavigationItem>
+              <NavigationItem>Services</NavigationItem>
+              <NavigationItem>Partners</NavigationItem>
+              <NavigationItem>About</NavigationItem>
+            </NavigationGroup>
+          </NavigationItemContainer>
+        </Navigation>
+      );
+    }}
+  </Story>
+</Preview>
